@@ -11,7 +11,7 @@ import UIKit
 // 1 - Change the Class name ViewController for UITableViewController
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["Find Mike" , "Buy Egoos" , "Destory Demogorgon"]
+    var itemArray = ["Find Mike" , "Buy Egoos" , "Destory Demogorgon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,37 @@ class TodoListViewController: UITableViewController {
     
     }
    
+// 4 - Button - Add Button Pressed
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        // This is a Alert when the user to click on button +
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        // Show up a button to user to click and add new item
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+        
+        // Add new element inside of Array.
+            self.itemArray.append(textField.text!)
+            
+        // After insert some item it is necessary for reload the datas
+            self.tableView.reloadData()
+            
+        }
+        
+        // It insert a Text Field within of the box of Alert
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create a new item"
+            textField = alertTextField
+            
+            print(textField.text)
+        }
+        
+        // Execute the Alert above.
+        alert.addAction(action)
+        present(alert, animated: true , completion: nil)
+    }
     
     
 }
