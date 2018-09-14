@@ -13,8 +13,16 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike" , "Buy Egoos" , "Destory Demogorgon"]
     
+    // Storage Datas
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Show of the datas saved
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
         
     }
 
@@ -37,7 +45,7 @@ class TodoListViewController: UITableViewController {
         
     }
     
-// 3 - TableView Delegate Methods (1 - didSelectRowAt , 2 - )
+// 3 - TableView Delegate Methods (1 - didSelectRowAt )
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(itemArray[indexPath.row])
@@ -67,6 +75,9 @@ class TodoListViewController: UITableViewController {
         
         // Add new element inside of Array.
             self.itemArray.append(textField.text!)
+            
+        // Saving datas
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
             
         // After insert some item it is necessary for reload the datas
             self.tableView.reloadData()
